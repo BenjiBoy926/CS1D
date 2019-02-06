@@ -26,7 +26,7 @@ public:
 	char_string(const char* ch = "")
 	{
 		strLen = strlen(ch);
-		data = new char[strLen];
+		data = new char[strLen + 1];
 		strcpy(data, ch);
 	}
 	// O(n)
@@ -48,7 +48,7 @@ public:
 		}
 
 		strLen = s.strLen;
-		data = new char[strLen];
+		data = new char[strLen + 1];
 		strcpy(data, s.data);
 		return *this;
 	}
@@ -127,7 +127,7 @@ public:
 	// n = size of this string
 	char_string reverse() const
 	{
-		char* copy = new char[strLen];
+		char* copy = new char[strLen + 1];
 		strcpy(copy, data);
 		std::reverse(copy, copy + strLen);
 

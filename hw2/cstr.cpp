@@ -53,9 +53,9 @@ void* memchr(const void* block, int byte, int count)
 	return found;
 }
 
-char* strstr(char* haystack, const char* needle)
+char* strstr(const char* haystack, const char* needle)
 {
-	char* tracker = haystack;	// Start the tracker pointer at the base address of the haystack
+	char* tracker = (char*)haystack;	// Start the tracker pointer at the base address of the haystack
 	int trackerIndex = 0;	// Index of the element in the haystack that the tracker is pointing to
 	int siftingIndex = 0;	// Index used to simultaneously search the needle and haystack
 	bool match = true;
@@ -121,7 +121,7 @@ char* strcat(const char* base, const char* add)
 {
 	int baseLen = strlen(base);
 	int addLen = strlen(add);
-	char* newStr = new char[baseLen + addLen - 1];
+	char* newStr = new char[baseLen + addLen + 1];
 
 	// Copy the base into the first part of the string
 	strcpy(newStr, base);

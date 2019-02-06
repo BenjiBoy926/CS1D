@@ -10,11 +10,11 @@
 int main()
 {
 	testCharConstructor();
-	// testAssignment();
-	// testIndexer();
-	// testIndexOf();
-	// testEquivalence();
-	// testAdding();
+	testAssignment();
+	testIndexer();
+	testIndexOf();
+	testEquivalence();
+	testAdding();
 
 	return 0;
 }
