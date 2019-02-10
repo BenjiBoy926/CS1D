@@ -113,7 +113,11 @@ public:
 	// n = size of resulting string
 	char_string operator+(const char_string& s) const
 	{
-		return char_string(strcat(data, s.data));
+		// Produce a deep copy of the concatenated string, then delete it
+		char* cattedString = strcat(data, s.data);
+		char_string result(cattedString);
+		delete [] cattedString;
+		return result;
 	}
 	// O(n)
 	// n = size of resulting string
