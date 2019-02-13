@@ -44,6 +44,7 @@ public:
 			
 			// Set previous to current before next iteration
 			previous = current;
+			index++;
 		}
 	}
 
