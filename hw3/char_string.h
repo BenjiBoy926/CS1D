@@ -16,6 +16,34 @@ class char_string
 private:
 	char_node* head;	// Points to the first node in the list
 
+	// Return a pointer to the node that has the same data searched for
+	char_node* find(const char_node* start, char search)
+	{
+		char_node* current = (char_node*)start;
+		bool found = false;
+
+		while(!found && current != nullptr)
+		{
+			if(current->data == search)
+			{
+				found = true;
+			}
+			else
+			{
+				current = current->next;
+			}
+		}
+
+		if(found)
+		{
+			return current;
+		}
+		else 
+		{
+			return nullptr;
+		}
+	}
+
 public:
 	static int npos;
 
@@ -129,8 +157,54 @@ public:
 	// O(n^2)
 	int indexOf(const char_string& search) const
 	{
-		std::cout << "\nWARNING: \"int indexOf(const char_string&)\" not implemented" << std::endl;
-		return npos;
+		if(length() < search.length())
+		{
+			return npos;
+		}
+
+		char_node* tracker = head;
+		char_node* thisIterator;	// Used for the inner iteration through a chunk in this string
+		char_node* otherIterator;	// Used for the inner iteration through the other string
+		bool match = false;
+		
+		while(!match && tracker != nullptr)
+		{
+			// Find the first data searched for in this string
+			tracker = find((const char_node*)tracker, search.head->data);
+
+			if(tracker != nullptr)
+			{
+				thisIterator = tracker;
+				otherIterator = search.head;
+				match = true;
+
+				// Loop through the other string and this string to see if the chunks match
+				while(match && thisIterator != nullptr && otherIterator != nullptr)
+				{
+					match = thisIterator->data == otherIterator->data;
+					
+					if(!match)
+					{
+						thisIterator = thisIterator->next;
+						otherIterator = otherIterator->next;
+					}
+				}
+
+				// Advance the tracker one step and resume the loop
+				tracker = tracker->next;
+			}
+		}
+
+		// If a match was found, return the index of the first item
+		if(match)
+		{
+			return indexOf(search.head->data);
+		}
+		// Otherwise, return "no position" constant
+		else
+		{
+			return npos;
+		}
 	}
 
 	// O(n)
