@@ -17,7 +17,7 @@ private:
 	char_node* head;	// Points to the first node in the list
 
 	// Return a pointer to the node that has the same data searched for
-	char_node* find(const char_node* start, char search)
+	char_node* find(const char_node* start, char search) const
 	{
 		char_node* current = (char_node*)start;
 		bool found = false;
@@ -153,7 +153,14 @@ public:
 			}
 		}
 
-		return index;
+		if(found)
+		{
+			return index;
+		}
+		else
+		{
+			return npos;
+		}
 	}
 	// O(n^2)
 	int indexOf(const char_string& search) const
@@ -171,7 +178,7 @@ public:
 		while(!match && tracker != nullptr)
 		{
 			// Find the first data searched for in this string
-			tracker = find((const char_node*)tracker, search.head->data);
+			tracker = find(tracker, search.head->data);
 
 			if(tracker != nullptr)
 			{
@@ -183,12 +190,8 @@ public:
 				while(match && thisIterator != nullptr && otherIterator != nullptr)
 				{
 					match = thisIterator->data == otherIterator->data;
-					
-					if(!match)
-					{
-						thisIterator = thisIterator->next;
-						otherIterator = otherIterator->next;
-					}
+					thisIterator = thisIterator->next;
+					otherIterator = otherIterator->next;
 				}
 
 				// Advance the tracker one step and resume the loop
