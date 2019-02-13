@@ -148,6 +148,7 @@ public:
 			}
 			else
 			{
+				current = current->next;
 				index++;
 			}
 		}
@@ -219,16 +220,16 @@ public:
 
 		char_node* thisCurrent = head;
 		char_node* otherCurrent = s.head;
-		bool cmp = 0;
+		bool equal = true;
 
-		while(cmp == 0 && thisCurrent != nullptr && otherCurrent != nullptr)
+		while(equal && thisCurrent != nullptr && otherCurrent != nullptr)
 		{
-			cmp = thisCurrent->data == otherCurrent->data;
+			equal = thisCurrent->data == otherCurrent->data;
 			thisCurrent = thisCurrent->next;
 			otherCurrent = otherCurrent->next;
 		}
 
-		return cmp;
+		return equal;
 	}
 	// O(n)
 	// n = size of resulting string
@@ -278,6 +279,7 @@ public:
 		while(current != nullptr)
 		{
 			out << current->data;
+			current = current->next;
 		}
 	}
 	// O(n)
