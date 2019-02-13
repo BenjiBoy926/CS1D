@@ -1,7 +1,7 @@
 ID = CH
 CC = g++
 FLAGS = -std=c++14 -Wall -g
-EXE = hw2
+EXE = hw3
 
 # Objects 
 OBJS = $(EXE).o

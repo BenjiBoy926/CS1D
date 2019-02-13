@@ -23,11 +23,27 @@ public:
 	{
 		head = nullptr;
 		char_node* current = head;
+		char_node* previous = nullptr;
 		int index = 0;
 		
 		while(cstr[index] != '\0')
 		{
+			// Construct a node from the data in the c-string
+			current = new char_node(cstr[index]);
+
+			// If there is no previous node yet, set head to the current node
+			if(previous == nullptr)
+			{
+				head = current;
+			}
+			// If there is a previous node, make it point to the current node
+			else
+			{
+				previous->next = current;
+			}
 			
+			// Set previous to current before next iteration
+			previous = current;
 		}
 	}
 
