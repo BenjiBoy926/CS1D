@@ -9,7 +9,6 @@
 
 #include <iostream>
 #include <algorithm>
-#include "cstr.h"
 #include "char_node.h"
 
 class char_string
@@ -19,6 +18,18 @@ private:
 
 public:
 	static int npos;
+
+	char_string(const char* cstr = "")
+	{
+		head = nullptr;
+		char_node* current = head;
+		int index = 0;
+		
+		while(cstr[index] != '\0')
+		{
+			
+		}
+	}
 
 	// Initialize the string from the base address of another string
 	char_string(const char_node* otherHead)
@@ -148,7 +159,7 @@ public:
 
 		// Create a digging copy of the first chunk and delete the local copy
 		char_string result(firstChunk);
-		char_string::digging_delete(firstChunk);
+		char_node::digging_delete(firstChunk);
 		return result;
 	}
 	// O(n)

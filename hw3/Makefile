@@ -4,7 +4,7 @@ FLAGS = -std=c++14 -Wall -g
 EXE = hw2
 
 # Objects 
-OBJS = $(EXE).o cstr.o
+OBJS = $(EXE).o
 
 # Names of screen capture and tar archive are based on executable's name
 SCR = $(EXE).scr

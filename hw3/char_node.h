@@ -16,7 +16,7 @@ class char_node
 		// Given a node, the function "burrows" down the list to the nullptr,
 		// producing a deep copy of every element on the way, and returns 
 		// the head pointer of the list copied
-		static char_node* digging_copy(char_node* start)
+		static char_node* digging_copy(const char_node* start)
 		{
 			if(start == nullptr)
 			{
@@ -40,8 +40,8 @@ class char_node
 				current = current->next;
 
 				// Delete previous and move it to current
-				delete prevoius;
-				prevous = current;
+				delete previous;
+				previous = current;
 			}
 		}
-}
+};
