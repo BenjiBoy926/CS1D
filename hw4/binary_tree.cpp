@@ -163,8 +163,8 @@ template <typename Key, typename Value>
 void binary_tree<Key, Value>::print(ostream& out)
 {
 	// Perform a preorder traversal, printing the value of the node on each visit
-	auto print_node = [out](const iterator& itor) { 
-		out << itor->value << endl;
+	auto print_node = [&out](const iterator& itor) { 
+		out << itor->value << ' ';
 	};
 	preorder_traversal(print_node);
 }
@@ -179,12 +179,6 @@ template <typename Key, typename Value>
 void binary_tree<Key, Value>::postorder_traversal(const node_action& action)
 {
 	postorder(root, action);
-}
-
-template <typename Key, typename Value>
-binary_tree<Key, Value>::~binary_tree()
-{
-	clear();
 }
 
 template <typename Key, typename Value>
@@ -282,12 +276,12 @@ void binary_tree<Key, Value>::preorder(iterator& root, const node_action& action
 	// If a left subtree exists, apply preorder to it
 	if(root->left != nullptr)
 	{
-		preorder(root->left);
+		preorder(root->left, action);
 	}
 	// If a right subtree exists, apply preorder to it
 	if(root->right != nullptr)
 	{
-		preorder(root->right);
+		preorder(root->right, action);
 	}
 }
 
@@ -297,12 +291,12 @@ void binary_tree<Key, Value>::postorder(iterator& root, const node_action& actio
 	// If a left subtree exists, traverse it
 	if(root->left != nullptr)
 	{
-		postorder(root->left);
+		postorder(root->left, action);
 	}
 	// If a right subtree exists, travers it
 	if(root->right != nullptr)
 	{
-		postorder(root->right);
+		postorder(root->right, action);
 	}
 	// Perform the action last
 	action(root);

@@ -49,7 +49,8 @@ class binary_node
 		Value& operator*();
 			// Dereference operator returns the value
 	// FRIENDS
-	friend class binary_tree<Key, Value>;
+	template<typename, typename>
+	friend class binary_tree;
 		// Give binary tree access to all node's data
 	friend class binary_tree_tester;
 };
@@ -98,7 +99,7 @@ class binary_tree
 			// Perform postorder traversal
 			// Call the function specified on each node visited
 		// DESTRUCTOR
-		~binary_tree();
+		virtual ~binary_tree() { clear(); }
 	// PROTECTED UTILITIES
 	protected:
 		iterator find_parent(const Key&) const;
