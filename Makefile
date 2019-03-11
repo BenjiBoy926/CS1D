@@ -1,12 +1,16 @@
 CC = g++
 FLAGS = -std=c++14 -Wall -g
-OBJS =
-EXE = hw12
+SOURCES = $(wildcard *.cpp)
+OBJS = $(SOURCES:.cpp=.o)
+EXE = exec
 
 all: $(EXE)
 
-$(EXE): $(EXE).cpp queue.h
-	$(CC) $(FLAGS) $(EXE).cpp -o $(EXE)
+$(EXE): $(OBJS)
+	$(CC) $(OBJS) -o $(EXE)
+
+%.o: %.cpp %.h
+	$(CC) $(FLAGS) -c $< -o $@
 
 clean:
 	rm $(OBJS) $(EXE) $(EXE).scr

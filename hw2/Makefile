@@ -1,29 +1,26 @@
-ID = CH
 CC = g++
 FLAGS = -std=c++14 -Wall -g
-EXE = hw2
-
-# Objects 
-OBJS = $(EXE).o cstr.o
-
-# Names of screen capture and tar archive are based on executable's name
-SCR = $(EXE).scr
-TAR = $(ID)$(EXE).tar
-
-submission:
-	script -c "date; ls -l; make all; ls -l; valgrind ./$(EXE); exit" $(SCR); make tar; make clean
+SOURCES = $(wildcard *.cpp)
+OBJS = $(SOURCES:.cpp=.o)
+EXE = hw12
 
 all: $(EXE)
 
 $(EXE): $(OBJS)
-	$(CC) $(FLAGS) -o $(EXE) $(OBJS)
+	$(CC) $(OBJS) -o $(EXE)
 
-# Recipe for building all object files
 %.o: %.cpp %.h
 	$(CC) $(FLAGS) -c $< -o $@
-	
+
 clean:
-	rm -f $(OBJS) $(EXE) $(SCR)
+	rm $(OBJS) $(EXE) $(EXE).scr
 
 tar:
-	tar cf $(TAR) *.cpp *.h $(SCR)
+	tar cf $(EXE).tar $(EXE).scr Makefile *.cpp *.h
+
+submission:
+	script -c "make commands" $(EXE).scr; make tar; make clean
+
+commands:
+	date; ls -l; make all; ls -l; valgrind ./$(EXE); exit
+	
