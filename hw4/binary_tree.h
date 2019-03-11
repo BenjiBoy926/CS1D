@@ -49,7 +49,7 @@ class binary_node
 		Value& operator*();
 			// Dereference operator returns the value
 	// FRIENDS
-	friend class binary_tree;
+	friend class binary_tree<Key, Value>;
 		// Give binary tree access to all node's data
 	friend class binary_tree_tester;
 };
@@ -111,14 +111,11 @@ class binary_tree
 			// Link the given iterator out of the tree by moving
 			// one child up in the tree and making the other child
 			// point to that child as the parent
-		void clear_from(iterator& root, iterator& root_parent);
-			// Clear all elements in the tree with the given root
 		void preorder(iterator&, const node_action&);
 		void inorder(iterator&, const node_action&);
 		void postorder(iterator&, const node_action&);
 	// FRIENDS
 	friend class binary_tree_tester;
-	friend std::ostream& operator<<(std::ostream&, const binary_tree<Key, Value>&);
 };
 
 // Helper class used to test the binary tree class

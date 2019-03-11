@@ -184,7 +184,7 @@ void binary_tree<Key, Value>::postorder_traversal(const node_action& action)
 template <typename Key, typename Value>
 binary_tree<Key, Value>::~binary_tree()
 {
-	erase();
+	clear();
 }
 
 template <typename Key, typename Value>
@@ -275,23 +275,6 @@ void binary_tree<Key, Value>::link_out(const iterator& rm)
 }
 
 template <typename Key, typename Value>
-void binary_tree<Key, Value>::clear_from(iterator& root, iterator& parent)
-{
-	// If the root exists, clear out its subtrees
-	if(root != nullptr)
-	{
-		// Clear out the left subtree
-		clear_from(root->left, root);
-		// Clear out the right subtree
-		clear_from(root->right, root);
-	}
-	else
-	{
-
-	}
-}
-
-template <typename Key, typename Value>
 void binary_tree<Key, Value>::preorder(iterator& root, const node_action& action)
 {
 	// Perform the action on the root
@@ -325,13 +308,6 @@ void binary_tree<Key, Value>::postorder(iterator& root, const node_action& actio
 	action(root);
 }
 
-template <typename Key, typename Value>
-void ostream& operator<<(ostream& out, const binary_tree<Key, Value>& tree)
-{
-	tree.print(out);
-}
-
-
 /*
 BINARY TREE TESTER IMPLEMENTATION
 */
@@ -353,5 +329,7 @@ void binary_tree_tester::testAdding()
 		tree.add(n);
 	}
 	// Output the tree in preorder notation
-	cout << "Current tree: " << tree << endl;
+	cout << "Current tree: ";
+	tree.print(cout);
+	cout << endl;
 }
