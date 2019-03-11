@@ -143,7 +143,7 @@ void binary_tree<Key, Value>::remove(const Key& k)
 }
 
 template <typename Key, typename Value>
-binary_tree<Key, Value>::iterator 
+typename binary_tree<Key, Value>::iterator 
 binary_tree<Key, Value>::find(const Key& k) const
 {
 	return find_from(k, root);
@@ -156,7 +156,7 @@ void binary_tree<Key, Value>::clear()
 }
 
 template <typename Key, typename Value>
-binary_tree<Key, Value>::iterator 
+typename binary_tree<Key, Value>::iterator 
 binary_tree<Key, Value>::find_parent(const Key& key) const
 {
 	// Start an iterator at the root node
@@ -184,7 +184,7 @@ binary_tree<Key, Value>::find_parent(const Key& key) const
 }
 
 template <typename Key, typename Value>
-binary_tree<Key, Value>::iterator 
+typename binary_tree<Key, Value>::iterator 
 binary_tree<Key, Value>::find_from(const Key& k, iterator root) const
 {
 	// Pre-check if root is null

@@ -11,7 +11,7 @@ class binary_node
 {
 	// DATA
 	private:
-		Key key
+		Key key;
 		Value value;
 		// Parent of this node
 		binary_node<Key, Value>* parent;
@@ -58,10 +58,10 @@ class binary_tree
 {
 	// TYPES AND TYPEDEFS
 	public:
-		typedef node binary_node<Key, Value>;
-		typedef iterator binary_node<Key, Value>*;
+		typedef binary_node<Key, Value> node;
+		typedef binary_node<Key, Value>* iterator;
 			// Tree's "iterator" is simply a binary node pointer
-		typedef node_action function<void(iterator&)>
+		typedef std::function<void(iterator&)> node_action;
 			// Typedef for a functor that returns void 
 			// and operates on a node iterator
 	// DATA
@@ -85,7 +85,7 @@ class binary_tree
 			// to the node found. Return null pointer if key was not found
 		void clear();
 			// Clear out all elements, and release all allocated space
-		void print(ostream& out);
+		void print(std::ostream& out);
 		void preorder_traversal(const node_action&);
 			// Perform pre-order traversal 
 			// Call the function specified on each node visited
@@ -123,7 +123,7 @@ class binary_tree_tester
 {
 	// TYPES AND TYPEDEFS
 	public:
-		typedef node binary_node<int, std::string>;
+		typedef binary_node<int, std::string> node;
 	// DATA
 	private:
 		// Binary tree to be tested
