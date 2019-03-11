@@ -1,8 +1,8 @@
 #ifndef BINARY_TREE_TESTER_H_
 #define BINARY_TREE_TESTER_H_
 
-#include "binary_node.h"
 #include "binary_tree.h"
+#include <vector>
 
 // Helper class used to test the binary tree class
 class binary_tree_tester
