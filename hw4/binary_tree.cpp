@@ -152,7 +152,39 @@ binary_tree<Key, Value>::find(const Key& k) const
 template <typename Key, typename Value>
 void binary_tree<Key, Value>::clear()
 {
-	clear_from(root);
+	// Perform a postorder traversal, deleting every node on the each visit
+	auto delete_node = [](const iterator& itor) {
+		delete itor;
+	};
+	postorder_traversal(delete_node);
+}
+
+template <typename Key, typename Value>
+void binary_tree<Key, Value>::print(ostream& out)
+{
+	// Perform a preorder traversal, printing the value of the node on each visit
+	auto print_node = [out](const iterator& itor) { 
+		out << itor->value << endl;
+	};
+	preorder_traversal(print_node);
+}
+
+template <typename Key, typename Value>
+void binary_tree<Key, Value>::preorder_traversal(const node_action& action)
+{
+	preorder(root, action);
+}
+
+template <typename Key, typename Value>
+void binary_tree<Key, Value>::postorder_traversal(const node_action& action)
+{
+	postorder(root, action);
+}
+
+template <typename Key, typename Value>
+binary_tree<Key, Value>::~binary_tree()
+{
+	erase();
 }
 
 template <typename Key, typename Value>
@@ -260,18 +292,6 @@ void binary_tree<Key, Value>::clear_from(iterator& root, iterator& parent)
 }
 
 template <typename Key, typename Value>
-void binary_tree<Key, Value>::preorder_traversal(const node_action& action)
-{
-	preorder(root, action);
-}
-
-template <typename Key, typename Value>
-void binary_tree<Key, Value>::postorder_traversal(const node_action& action)
-{
-	postorder(root, action);
-}
-
-template <typename Key, typename Value>
 void binary_tree<Key, Value>::preorder(iterator& root, const node_action& action)
 {
 	// Perform the action on the root
@@ -305,6 +325,33 @@ void binary_tree<Key, Value>::postorder(iterator& root, const node_action& actio
 	action(root);
 }
 
+template <typename Key, typename Value>
+void ostream& operator<<(ostream& out, const binary_tree<Key, Value>& tree)
+{
+	tree.print(out);
+}
+
+
 /*
 BINARY TREE TESTER IMPLEMENTATION
 */
+
+void binary_tree_tester::testAdding()
+{
+	// Create a list of nodes to add
+	vector<node> adding_nodes = {
+		node(2, 'A'),
+		node(3, 'C'),
+		node(1, 'B')
+	};
+	cout << "Testing binary tree adding:" << endl;
+	cout << "---------------------------" << endl;
+	// Output each key-value of the nodes to add
+	for(node n : adding_nodes)
+	{
+		cout << "Adding node [" << n.key << ", " << n.value << "]..." << endl;
+		tree.add(n);
+	}
+	// Output the tree in preorder notation
+	cout << "Current tree: " << tree << endl;
+}

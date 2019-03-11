@@ -51,6 +51,7 @@ class binary_node
 	// FRIENDS
 	friend class binary_tree;
 		// Give binary tree access to all node's data
+	friend class binary_tree_tester;
 };
 
 template <typename Key, typename Value>
@@ -85,7 +86,8 @@ class binary_tree
 			// to the node found. Return null pointer if key was not found
 		void clear();
 			// Clear out all elements, and release all allocated space
-		void print(std::ostream& out);
+		void print(std::ostream&);
+			// Print out all elements in the tree in pre-order notation
 		void preorder_traversal(const node_action&);
 			// Perform pre-order traversal 
 			// Call the function specified on each node visited
@@ -111,11 +113,12 @@ class binary_tree
 			// point to that child as the parent
 		void clear_from(iterator& root, iterator& root_parent);
 			// Clear all elements in the tree with the given root
-		void print_node(const iterator&);
-			// Print the node specified
 		void preorder(iterator&, const node_action&);
 		void inorder(iterator&, const node_action&);
 		void postorder(iterator&, const node_action&);
+	// FRIENDS
+	friend class binary_tree_tester;
+	friend std::ostream& operator<<(std::ostream&, const binary_tree<Key, Value>&);
 };
 
 // Helper class used to test the binary tree class
@@ -123,16 +126,17 @@ class binary_tree_tester
 {
 	// TYPES AND TYPEDEFS
 	public:
-		typedef binary_node<int, std::string> node;
+		typedef binary_node<int, char> node;
 	// DATA
 	private:
 		// Binary tree to be tested
-		static binary_tree<int, std::string> tree;
+		binary_tree<int, char> tree;
 	// METHODS
 	public:
-		static void testAll();
-		static void testAdding();
-		static void testFinding();
+		binary_tree_tester() : tree(binary_tree<int, char>()) {}
+		void testAll();
+		void testAdding();
+		void testFinding();
 };
 
 #endif // BINARY_TREE_H_
