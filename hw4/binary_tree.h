@@ -148,24 +148,30 @@ class binary_tree
 		// key-value pair with the key properly inserted
 		void add(const Key& k, const Value& v)
 		{
-			// Find the parent that the new node belongs to
-			iterator parent = find_parent(k);
-			// If no parent is found, we know this node is the root
-			if(parent == nullptr)
+			if(root == nullptr)
 			{
 				root = new node(k, v);
 			}
-			// If key to add is bigger than parent key...
-			else if(k > parent->key)
-			{
-				//...link up new node on the right of the parent
-				parent->link_right(new node(k, v));
-			}
-			// If key to add is smaller than parent key...
 			else
 			{
-				//...link up new node on the left of the parent
-				parent->link_left(new node(k, v));
+				// Find the parent that the new node belongs to
+				iterator parent = find_parent(k);
+				// If no parent is found, we know this node is the root
+				if(parent != nullptr)
+				{
+					// If key to add is bigger than parent key...
+					if(k > parent->key)
+					{
+						//...link up new node on the right of the parent
+						parent->link_right(new node(k, v));
+					}
+					// If key to add is smaller than parent key...
+					else
+					{
+						//...link up new node on the left of the parent
+						parent->link_left(new node(k, v));
+					}
+				}
 			}
 		}
 		void add(const node& n)
@@ -190,12 +196,12 @@ class binary_tree
 		// to the node found. Return null pointer if key was not found
 		iterator find(const Key& k) const
 		{
-			return find_from(k, root);
+			return find_from(root, k);
 		}
 		// Clear out all elements, and release all allocated space
 		void clear()
 		{
-			// Perform a postorder traversal, deleting every node on the each visit
+			// Perform a postorder traversal, deleting every node on each visit
 			auto delete_node = [](const iterator& itor) {
 				delete itor;
 			};
@@ -253,10 +259,16 @@ class binary_tree
 					current = current->left;
 				}
 				// If key searched for is bigger than current key...
-				else
+				else if(key > current->key)
 				{
 					//...move to the right
 					current = current->right;
+				}
+				// If the keys are equal, return nullptr
+				// The tree cannot have duplicate keys!
+				else
+				{
+					return nullptr;
 				}
 			}
 			// Return the parent of the null place where the key belongs
