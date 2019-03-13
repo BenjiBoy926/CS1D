@@ -196,7 +196,7 @@ class binary_tree
 		// to the node found. Return null pointer if key was not found
 		iterator find(const Key& k) const
 		{
-			return find_from(root, k);
+			return find_from(k, root);
 		}
 		// Clear out all elements, and release all allocated space
 		void clear()

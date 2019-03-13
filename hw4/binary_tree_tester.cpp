@@ -16,6 +16,9 @@ void binary_tree_tester::test_adding()
 {
 	// Create a list of nodes to add
 	vector<node> adding_nodes = {
+		node(4, 'A'),
+		node(2, 'B'),
+		node(3, 'E'),
 		node(1, 'D'),
 		node(2, 'B'),
 		node(3, 'E'),
@@ -35,7 +38,7 @@ void binary_tree_tester::test_adding()
 	// Output the tree in preorder notation
 	cout << "Current tree: ";
 	tree.print(cout);
-	cout << endl;
+	cout << endl << endl;
 }
 
 void binary_tree_tester::test_finding()
@@ -47,10 +50,12 @@ void binary_tree_tester::test_finding()
 	// HEADER
 	test_title("Testing binary tree finding");
 	output_current_state();
+	cout << endl;
 	// PROCESSING
 	for(auto k : keys)
 	{
 		test_find_single(k);
+		cout << endl;
 	}
 	cout << endl;
 }
