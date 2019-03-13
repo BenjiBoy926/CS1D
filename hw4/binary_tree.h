@@ -278,7 +278,6 @@ class binary_tree
 		{
 			// Perform a postorder traversal, deleting every node on each visit
 			auto delete_node = [](const iterator& itor) {
-				itor->ground_children();
 				delete itor;
 			};
 			postorder_traversal(delete_node);
