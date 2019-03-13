@@ -10,6 +10,7 @@ void binary_tree_tester::test_all()
 {
 	test_adding();
 	test_finding();
+	test_removal();
 }
 
 void binary_tree_tester::test_adding()
@@ -18,13 +19,10 @@ void binary_tree_tester::test_adding()
 	vector<node> adding_nodes = {
 		node(4, 'A'),
 		node(2, 'B'),
+		node(6, 'C'),
 		node(3, 'E'),
 		node(1, 'D'),
-		node(2, 'B'),
-		node(3, 'E'),
-		node(4, 'A'),
 		node(5, 'F'),
-		node(6, 'C'),
 		node(7, 'G'),
 		node(1, 'D')
 	};
@@ -60,6 +58,25 @@ void binary_tree_tester::test_finding()
 	cout << endl;
 }
 
+void binary_tree_tester::test_removal()
+{
+	// List of keys to remove from the list
+	vector<int> rm_keys = {
+		0, 8, 1, 6, 4
+	};
+	// Output the title and current tree 
+	test_title("Testing binary tree removal");
+	output_current_state();
+	cout << endl;
+	// Remove the nodes at each of the keys
+	for(int key : rm_keys)
+	{
+		test_remove_single(key);
+		output_current_state();
+		cout << endl;
+	}
+}
+
 void binary_tree_tester::test_title(string title)
 {
 	cout << title << endl;
@@ -82,6 +99,12 @@ void binary_tree_tester::test_find_single(int key)
 	{
 		cout << "No node found with key " << key << endl;
 	}
+}
+
+void binary_tree_tester::test_remove_single(int key)
+{
+	cout << "Removing node with key " << key << "..." << endl;
+	tree.remove(key);
 }
 
 void binary_tree_tester::output_current_state()

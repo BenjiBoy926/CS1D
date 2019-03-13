@@ -189,6 +189,28 @@ class binary_tree
 			if(rm != nullptr)
 			{
 				link_out(rm);
+				// If we just removed the root, replace it
+				if(rm == root)
+				{
+					// If the node has a left child...
+					if(rm->left != nullptr)
+					{
+						//...replace the root with the left child
+						root = rm->left;
+					}
+					// If the node has no left child and a right child...
+					else if(rm->right != nullptr)
+					{
+						//...replace the root with right child
+						root = rm->right;
+					}
+					// If the node has no children...
+					else
+					{
+						//...replace the root with null
+						root = nullptr;
+					}
+				}
 				delete rm;
 			}
 		}
@@ -303,7 +325,7 @@ class binary_tree
 		}
 		// Link the given iterator out of the tree by moving
 		// one child up in the tree and making the other child
-		// point to that child as the parent
+		// (if any) point to that child as the parent
 		void link_out(const iterator& rm)
 		{
 			// Grab all adjacent nodes
@@ -316,7 +338,7 @@ class binary_tree
 				// Check to see if this is the left child of the parent
 				bool isLeftChild = parent->left == rm;
 				// Link the child of the node on the same side of the parent
-				// node that this node is on
+				// that this node is on
 				if(left != nullptr)
 				{
 					parent->link_child(left, isLeftChild);
