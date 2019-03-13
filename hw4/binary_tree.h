@@ -40,23 +40,57 @@ class binary_node
 				link_right(child);
 			}
 		}
-
 		// Connect a node to the right of this node by setting
 		// this node's "right" pointer and the new node's "parent" pointer
 		void link_right(binary_node<Key, Value>* child)
 		{
-			child->parent = this;
-			right = child;
+			if(right == nullptr)
+			{
+				child->parent = this;
+				right = child;
+			}
 		}
-
 		// Connect a node to the left of this node by setting
 		// this node's "left" pointer and the new node's "parent" pointer	
 		void link_left(binary_node<Key, Value>* child)
 		{
-			child->parent = this;
-			left = child;
+			if(left == nullptr)
+			{
+				child->parent = this;
+				left = child;
+			}
 		}
-
+		// Ground the left or right child depending on boolean value
+		void ground_child(bool left)
+		{
+			if(left)
+			{
+				ground_left();
+			}
+			else
+			{
+				groung_right();
+			}
+			
+		}
+		// Ground the right child by making it null, and making it's parent null
+		void ground_right()
+		{
+			if(right != nullptr)
+			{
+				right->parent = nullptr;
+				right = nullptr;
+			}
+		}
+		// Ground the left child by making it null, and making it's parent null
+		void ground_left()
+		{
+			if(left != nullptr)
+			{
+				left->parent = nullptr;
+				left = nullptr;
+			}
+		}
 		// Return a pointer to a node that is a sibling to this node
 		// == nullptr if:
 		//		* this doesn't have a parent
@@ -82,7 +116,6 @@ class binary_node
 				return nullptr;
 			}
 		}
-
 		// Return the left pointer, right pointer, or null pointer:
 		//		* Returns left 
 		//		* If left is null, returns right
@@ -100,7 +133,22 @@ class binary_node
 				return right;
 			}
 		}
-
+		// Return the node all the way down on the tree, furthest to the right
+		binary_node<Key, Value>* rightmost_descendent()
+		{
+			if(right != nullptr)
+			{
+				return right->rightmost_descendent();
+			}
+			else if(left != nullptr)
+			{
+				return left->rightmost_descendent();
+			}
+			else
+			{
+				return this;
+			}
+		}
 		bool root()
 		{
 			return parent == nullptr;
@@ -335,8 +383,10 @@ class binary_tree
 
 			if(parent != nullptr)
 			{
-				// Check to see if this is the left child of the parent
+				// Store if this is the left or right child
 				bool isLeftChild = parent->left == rm;
+				// Ground the corresponding child on the parent
+				parent->ground_child(isLeftChild);
 				// Link the child of the node on the same side of the parent
 				// that this node is on
 				if(left != nullptr)
@@ -351,8 +401,9 @@ class binary_tree
 			// If iterator to remove has both children...
 			if(left != nullptr && right != nullptr)
 			{
-				//...parent the right child beneath the left one
-				left->link_right(right);
+				//...parent the right child on the rightmost descendent
+				// node of the left node
+				left->rightmost_descendent()->link_right(right);
 			}
 		}
 		void preorder(iterator& root, const node_action& action)

@@ -17,14 +17,17 @@ void binary_tree_tester::test_adding()
 {
 	// Create a list of nodes to add
 	vector<node> adding_nodes = {
-		node(4, 'A'),
-		node(2, 'B'),
-		node(6, 'C'),
-		node(3, 'E'),
-		node(1, 'D'),
-		node(5, 'F'),
-		node(7, 'G'),
-		node(1, 'D')
+		node(8, 'A'),
+		node(4, 'B'),
+		node(10, 'C'),
+		node(2, 'D'),
+		node(6, 'E'),
+		node(9, 'J'),
+		node(11, 'K'),
+		node(1, 'F'),
+		node(3, 'G'),
+		node(5, 'H'),
+		node(7, 'I')
 	};
 	test_title("Testing binary tree adding");
 	// Output each key-value of the nodes to add
@@ -62,7 +65,7 @@ void binary_tree_tester::test_removal()
 {
 	// List of keys to remove from the list
 	vector<int> rm_keys = {
-		0, 8, 1, 6, 4
+		0, 12, 9, 10, 2, 4, 8
 	};
 	// Output the title and current tree 
 	test_title("Testing binary tree removal");
