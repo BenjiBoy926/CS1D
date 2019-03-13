@@ -276,6 +276,7 @@ class binary_tree
 				delete itor;
 			};
 			postorder_traversal(delete_node);
+			root = nullptr;
 		}
 		// Print out all elements in the tree in pre-order notation
 		void print(std::ostream& out)
