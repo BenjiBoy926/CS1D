@@ -86,6 +86,7 @@ void binary_tree_tester::test_clear()
 	test_title("Testing binary tree clear");
 	output_current_state();
 	cout << "Clearing the tree..." << endl;
+	tree.clear();
 	output_current_state();
 }
 
