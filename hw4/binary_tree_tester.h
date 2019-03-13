@@ -23,6 +23,7 @@ class binary_tree_tester
 		void test_adding();
 		void test_finding();
 		void test_removal();
+		void test_clear();
 		// Output the tree
 		void output_current_state();
 	// PROTECTED UTILITIES

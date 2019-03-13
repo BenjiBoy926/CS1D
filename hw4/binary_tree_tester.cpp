@@ -11,6 +11,7 @@ void binary_tree_tester::test_all()
 	test_adding();
 	test_finding();
 	test_removal();
+	test_clear();
 }
 
 void binary_tree_tester::test_adding()
@@ -78,6 +79,14 @@ void binary_tree_tester::test_removal()
 		output_current_state();
 		cout << endl;
 	}
+}
+
+void binary_tree_tester::test_clear()
+{
+	test_title("Testing binary tree clear");
+	output_current_state();
+	cout << "Clearing the tree..." << endl;
+	output_current_state();
 }
 
 void binary_tree_tester::test_title(string title)

@@ -69,7 +69,7 @@ class binary_node
 			}
 			else
 			{
-				groung_right();
+				ground_right();
 			}
 			
 		}
