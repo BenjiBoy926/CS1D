@@ -70,8 +70,13 @@ class binary_node
 			else
 			{
 				ground_right();
-			}
-			
+			}	
+		}
+		// Ground both children
+		void ground_children()
+		{
+			ground_left();
+			ground_right();
 		}
 		// Ground the right child by making it null, and making it's parent null
 		void ground_right()
@@ -273,6 +278,7 @@ class binary_tree
 		{
 			// Perform a postorder traversal, deleting every node on each visit
 			auto delete_node = [](const iterator& itor) {
+				itor->ground_children();
 				delete itor;
 			};
 			postorder_traversal(delete_node);
@@ -291,19 +297,28 @@ class binary_tree
 		// Call the function specified on each node visited
 		void preorder_traversal(const node_action& action)
 		{
-			preorder(root, action);
+			if(root != nullptr)
+			{
+				preorder(root, action);
+			}
 		}
 		// Perform in-order traversal 
 		// Call the function specified on each node visited
 		void inorder_traversal(const node_action& action)
 		{
-			inorder(root, action);
+			if(root != nullptr)
+			{
+				inorder(root, action);
+			}
 		}
 		// Perform postorder traversal
 		// Call the function specified on each node visited
 		void postorder_traversal(const node_action& action)
 		{
-			postorder(root, action);
+			if(root != nullptr)
+			{
+				postorder(root, action);
+			}
 		}
 		// DESTRUCTOR
 		virtual ~binary_tree() 
@@ -444,7 +459,7 @@ class binary_tree
 			{
 				postorder(root->left, action);
 			}
-			// If a right subtree exists, travers it
+			// If a right subtree exists, traverse it
 			if(root->right != nullptr)
 			{
 				postorder(root->right, action);
