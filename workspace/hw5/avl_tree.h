@@ -17,12 +17,13 @@ class avl_tree : public binary_tree<Key, Value>
 {
 	// TYPES AND TYPEDEFS
 	public:
-		typedef binary_tree<Key, Value> binary_tree;
+		typedef binary_node<Key, Value> node;
+		typedef binary_node<Key, Value>* iterator;
 	// METHODS
 	public:
 		void add(const Key& k, const Value& v)
 		{
-			binary_tree::add(k, v);
+			binary_tree<Key, Value>::add(k, v);
 			// Check balance
 			// Re-balance if unbalanced
 		}
