@@ -407,7 +407,7 @@ class binary_tree
 				// Store if this is the left or right child
 				bool isLeftChild = parent->left == rm;
 				// Ground the corresponding child on the parent
-				parent->ground_child(isLeftChild);
+				parent->abandon_child(isLeftChild);
 				// Link the child of the node on the same side of the parent
 				// that this node is on
 				if(left != nullptr)
@@ -424,7 +424,7 @@ class binary_tree
 			{
 				//...parent the right child on the rightmost descendent
 				// node of the left node
-				left->rightmost_descendent()->link_right(right);
+				left->rightmost_descendent()->adopt_right(right);
 			}
 		}
 		void preorder(iterator& root, const node_action& action)
