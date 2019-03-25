@@ -1,5 +1,5 @@
 CC = g++
-FLAGS = -std=c++14 -Wall -g
+FLAGS = -std=c++17 -Wall -g
 SOURCES = $(wildcard *.cpp)
 OBJS = $(SOURCES:.cpp=.o)
 EXE = exec

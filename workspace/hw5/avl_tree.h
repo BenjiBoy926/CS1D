@@ -29,7 +29,7 @@ class avl_tree : public binary_tree<Key, Value>
 		}
 		void add(const node& n)
 		{
-			add(n.key, n.value);
+			add(n->getKey(), n->getValue());
 		}
 		void remove(const Key& k)
 		{

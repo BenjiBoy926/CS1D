@@ -195,7 +195,7 @@ class binary_tree
 			// Typedef for a functor that returns void 
 			// and operates on a node iterator
 	// DATA
-	private:
+	protected:
 		iterator root;
 	// METHODS
 	public:
