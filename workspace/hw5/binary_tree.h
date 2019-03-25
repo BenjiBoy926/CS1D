@@ -25,8 +25,8 @@ class binary_node
 			: key(k), value(v), parent(p), left(nullptr), right(nullptr) {}
 		
 		// GETTERS
-		Key getKey() { return key; }
-		Value getValue() { return value; }
+		Key getKey() const { return key; }
+		Value getValue() const { return value; }
 
 		// Link a child on the left or right as specified by boolean value
 		void adopt_child(binary_node<Key, Value>* child, bool left)
@@ -94,7 +94,7 @@ class binary_node
 		// == nullptr if:
 		//		* this doesn't have a parent
 		//		* this doesn't have a sibling
-		binary_node<Key, Value>* sibling()
+		binary_node<Key, Value>* sibling() const
 		{
 			if(parent != nullptr)
 			{
@@ -119,7 +119,7 @@ class binary_node
 		//		* Returns left 
 		//		* If left is null, returns right
 		//		* If right is also null, return null
-		binary_node<Key, Value>* child()
+		binary_node<Key, Value>* child() const
 		{
 			if(left != nullptr)
 			{
@@ -133,7 +133,7 @@ class binary_node
 			}
 		}
 		// Return the node all the way down on the tree, furthest to the right
-		binary_node<Key, Value>* rightmost_descendent()
+		binary_node<Key, Value>* rightmost_descendent() const
 		{
 			if(right != nullptr)
 			{
@@ -149,7 +149,7 @@ class binary_node
 			}
 		}
 		// Return the depth of this node in the tree
-		int depth()
+		int depth() const
 		{
 			if(parent != nullptr)
 			{
@@ -160,15 +160,15 @@ class binary_node
 				return 0;
 			}
 		}
-		bool root()
+		bool root() const
 		{
 			return parent == nullptr;
 		}
-		bool internal()
+		bool internal() const
 		{
 			return left != nullptr || right != nullptr;
 		}
-		bool external()
+		bool external() const
 		{
 			return !internal();
 		}
