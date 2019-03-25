@@ -196,7 +196,7 @@ class binary_tree
 			// and operates on a node iterator
 	// DATA
 	protected:
-		binary_node<Key, Value>* root;
+		iterator root;
 	// METHODS
 	public:
 		// CONSTRUCTORS

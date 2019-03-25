@@ -2,6 +2,7 @@
 #define AVL_TREE_H_
 
 #include <vector>
+#include <algorithm>
 #include "binary_tree.h"
 
 /*
