@@ -94,7 +94,7 @@ class binary_node
 		// == nullptr if:
 		//		* this doesn't have a parent
 		//		* this doesn't have a sibling
-		binary_node<Key, Value>* sibling() const
+		binary_node<Key, Value>* sibling()
 		{
 			if(parent != nullptr)
 			{
@@ -119,7 +119,7 @@ class binary_node
 		//		* Returns left 
 		//		* If left is null, returns right
 		//		* If right is also null, return null
-		binary_node<Key, Value>* child() const
+		binary_node<Key, Value>* child()
 		{
 			if(left != nullptr)
 			{
@@ -133,7 +133,7 @@ class binary_node
 			}
 		}
 		// Return the node all the way down on the tree, furthest to the right
-		binary_node<Key, Value>* rightmost_descendent() const
+		binary_node<Key, Value>* rightmost_descendent()
 		{
 			if(right != nullptr)
 			{
