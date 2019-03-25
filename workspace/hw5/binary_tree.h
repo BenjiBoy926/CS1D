@@ -33,11 +33,11 @@ class binary_node
 		{
 			if(left)
 			{
-				link_left(child);
+				adopt_left(child);
 			}
 			else
 			{
-				link_right(child);
+				adopt_right(child);
 			}
 		}
 		// Connect a node to the right of this node by setting
