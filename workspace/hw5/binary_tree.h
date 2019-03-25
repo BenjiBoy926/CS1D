@@ -148,6 +148,18 @@ class binary_node
 				return this;
 			}
 		}
+		// Return the depth of this node in the tree
+		int depth()
+		{
+			if(parent != nullptr)
+			{
+				return 1 + parent->depth();
+			}
+			else
+			{
+				return 0;
+			}
+		}
 		bool root()
 		{
 			return parent == nullptr;

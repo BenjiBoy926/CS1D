@@ -1,6 +1,7 @@
 #ifndef AVL_TREE_H_
 #define AVL_TREE_H_
 
+#include <vector>
 #include "binary_tree.h"
 
 /*
@@ -35,9 +36,26 @@ class avl_tree : public binary_tree<Key, Value>
 		}
 	// PROTECTED HELPERS
 	protected:
-		// Return the height of the node
-		// represented by the given iterator
-		int height(const iterator& root);
+		// Return true if the max difference in the depths of the leaves is at most 1
+		bool is_avl() const
+		{
+			// Get a list of the leaves in the tree
+			std::vector<iterator> nodes = leaves();
+			// If the root is missing either subtree,
+			// it should be included in the comparison
+			if(root->left == nullptr || root->right == nullptr)
+			{
+				nodes.push_back(root);
+			}
+			// Create a function object that compares two iterators by their depth
+			auto compare_by_depth = [](const iterator& itor1, const iterator& itor2) 
+			{
+				return itor1->depth() < itor2->depth();
+			};
+			// Sort nodes from least to greatest depth
+			std::sort(nodes.begin(), nodes.end(), compare_by_depth);
+			return (nodes.back()->depth - nodes.front()->depth) <= 1;
+		}
 		// Given the root, rotate the subtree to the right
 		void rot_right(iterator& root)
 		{
@@ -84,6 +102,22 @@ class avl_tree : public binary_tree<Key, Value>
 		{
 			rot_left(root->left);
 			rot_right(root);
+		}
+		// Return a vector with iterators to all of the leaves in the avl tree
+		std::vector<iterator> leaves() const
+		{
+			std::vector<iterator> leaves_list;
+			auto add_leaves = [&leaves_list](iterator& itor) 
+			{
+				// Push back the current iterator if it has no children 
+				if(itor->external())
+				{
+					leaves_list.push_back(itor);
+				}
+			};
+			// Traverse the whole tree, adding all leaves
+			postorder_traversal(add_leaves);
+			return leaves_list;
 		}
 };
 
