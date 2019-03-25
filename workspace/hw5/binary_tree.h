@@ -222,13 +222,13 @@ class binary_tree
 					if(k > parent->key)
 					{
 						//...link up new node on the right of the parent
-						parent->link_right(new node(k, v));
+						parent->adopt_right(new node(k, v));
 					}
 					// If key to add is smaller than parent key...
 					else
 					{
 						//...link up new node on the left of the parent
-						parent->link_left(new node(k, v));
+						parent->adopt_left(new node(k, v));
 					}
 				}
 			}
@@ -412,11 +412,11 @@ class binary_tree
 				// that this node is on
 				if(left != nullptr)
 				{
-					parent->link_child(left, isLeftChild);
+					parent->adopt_child(left, isLeftChild);
 				}
 				else if(right != nullptr)
 				{
-					parent->link_child(right, isLeftChild);
+					parent->adopt_child(right, isLeftChild);
 				}
 			}
 			// If iterator to remove has both children...
