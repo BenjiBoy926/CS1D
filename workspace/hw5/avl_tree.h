@@ -47,7 +47,7 @@ class avl_tree : public binary_tree<Key, Value>
 			// it should be included in the comparison
 			if(this->root->left == nullptr || this->root->right == nullptr)
 			{
-				nodes.push_back(root);
+				nodes.push_back(this->root);
 			}
 			// Create a function object that compares two iterators by their depth
 			auto compare_by_depth = [](const iterator& itor1, const iterator& itor2) 
