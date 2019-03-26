@@ -45,7 +45,7 @@ class avl_tree : public binary_tree<Key, Value>
 			std::vector<iterator> nodes = leaves();
 			// If the root is missing either subtree,
 			// it should be included in the comparison
-			if(root->left == nullptr || root->right == nullptr)
+			if(this->root->left == nullptr || this->root->right == nullptr)
 			{
 				nodes.push_back(root);
 			}
