@@ -2,7 +2,9 @@ CC = g++
 FLAGS = -std=c++17 -Wall -g
 SOURCES = $(wildcard *.cpp)
 OBJS = $(SOURCES:.cpp=.o)
-EXE = exec
+EXE = $(notdir $(CURDIR))
+NAME = CH
+TAR = $(NAME)$(EXE)
 
 all: $(EXE)
 
@@ -16,7 +18,7 @@ clean:
 	rm $(OBJS) $(EXE) $(EXE).scr
 
 tar:
-	tar cf $(EXE).tar $(EXE).scr Makefile *.cpp *.h
+	tar cf $(TAR).tar $(EXE).scr Makefile *.cpp *.h
 
 submission:
 	script -c "make commands" $(EXE).scr; make tar; make clean
