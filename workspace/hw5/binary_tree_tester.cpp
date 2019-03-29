@@ -34,7 +34,7 @@ void binary_tree_tester::test_adding()
 	// Output each key-value of the nodes to add
 	for(node n : adding_nodes)
 	{
-		cout << "Adding node [" << n.getKey() << ", " << n.getValue() << "]..." << endl;
+		cout << "Adding node [" << n.get_key() << ", " << n.get_value() << "]..." << endl;
 		tree.add(n);
 	}
 	// Output the tree in preorder notation
@@ -106,7 +106,7 @@ void binary_tree_tester::test_find_single(int key)
 	target = tree.find(key);
 	if(target != nullptr) 
 	{
-		cout << "Found node with data " << target->getValue() << endl;
+		cout << "Found node with data " << target->get_value() << endl;
 	}
 	else
 	{
