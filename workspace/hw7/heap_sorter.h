@@ -1,8 +1,5 @@
 /*
- * heap_sorter.h
- *
- *  Created on: Apr 23, 2019
- *      Author: creat
+ * HEAP SORTER: Time complexity - O(nlogn)
  */
 
 #ifndef HEAP_SORTER_H_

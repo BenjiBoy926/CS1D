@@ -12,9 +12,11 @@
 #include <vector>
 using namespace std;
 
-const int TOTAL_STRINGS = 45000;	// Total strings in sample input file
-const int TOTAL_PARTITIONS = 10;	// Total times
-const char* INPUT_FILE = "strings.txt";
+const int TOTAL_STRINGS = 5000;	// Total strings in sample input file
+const int TOTAL_PARTITIONS = 10;	// Total times the input files are partitioned
+
+const char** INPUT_FILES = { "strings.txt", "words.txt" };
+const int TOTAL_INPUT_FILES = 2;
 
 int main()
 {
@@ -33,20 +35,26 @@ int main()
 		delete sorter;
 	};
 
-	for(int i = 1; i <= TOTAL_PARTITIONS; i++)
+	for(int file = 0; file < TOTAL_INPUT_FILES; file++)
 	{
-		// Initialize each of the sorters from the same file
-		auto initializeFromFile = [i](sorter<string>*& sorter) {
-			sorter->initialize_from_file(INPUT_FILE, TOTAL_STRINGS * ((float)i / TOTAL_PARTITIONS));
-		};
-		for_each(sorters.begin(), sorters.end(), initializeFromFile);
+		// Output the file name being sorted
+		cout << "--- SORTING FILE NAME \"" << INPUT_FILES[file] << "\" ---" << endl;
 
-		// Output the number of strings being sorted in this partition
-		cout << "--- SORTING " << TOTAL_STRINGS * ((float)i / TOTAL_PARTITIONS) << " STRINGS ---" << endl << endl;
+		for(int partition = 1; partition <= TOTAL_PARTITIONS; partition++)
+		{
+			// Initialize each of the sorters from the same file
+			auto initializeFromFile = [partition](sorter<string>*& sorter) {
+				sorter->initialize_from_file(INPUT_FILES[file], TOTAL_STRINGS * ((float)partition / TOTAL_PARTITIONS));
+			};
+			for_each(sorters.begin(), sorters.end(), initializeFromFile);
 
-		// Sort and report on each of the sorters
-		for_each(sorters.begin(), sorters.end(), sortAndReport);
-		cout << endl;
+			// Output the number of strings being sorted in this partition
+			cout << "--- SORTING " << TOTAL_STRINGS * ((float)partition / TOTAL_PARTITIONS) << " STRINGS ---" << endl << endl;
+
+			// Sort and report on each of the sorters
+			for_each(sorters.begin(), sorters.end(), sortAndReport);
+			cout << endl;
+		}
 	}
 
 	// Delete each of the sorters before exiting

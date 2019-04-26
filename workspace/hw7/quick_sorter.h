@@ -1,8 +1,5 @@
 /*
- * quick_sorter.h
- *
- *  Created on: Apr 21, 2019
- *      Author: creat
+ * QUICKSORTER: Time complexity - O(nlogn)
  */
 
 #ifndef QUICK_SORTER_H_

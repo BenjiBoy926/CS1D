@@ -1,8 +1,5 @@
 /*
- * insertion_sorter.h
- *
- *  Created on: Apr 21, 2019
- *      Author: creat
+ * INSERTION SORTER: Time complexity - O(n^2)
  */
 
 #ifndef INSERTION_SORTER_H_
