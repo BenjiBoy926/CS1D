@@ -15,8 +15,11 @@ using namespace std;
 const int TOTAL_STRINGS = 5000;	// Total strings in sample input file
 const int TOTAL_PARTITIONS = 10;	// Total times the input files are partitioned
 
-const char** INPUT_FILES = { "strings.txt", "words.txt" };
 const int TOTAL_INPUT_FILES = 2;
+const string* INPUT_FILES = new string[TOTAL_INPUT_FILES]{
+	"strings.txt",
+	"words.txt"
+};
 
 int main()
 {
@@ -43,8 +46,8 @@ int main()
 		for(int partition = 1; partition <= TOTAL_PARTITIONS; partition++)
 		{
 			// Initialize each of the sorters from the same file
-			auto initializeFromFile = [partition](sorter<string>*& sorter) {
-				sorter->initialize_from_file(INPUT_FILES[file], TOTAL_STRINGS * ((float)partition / TOTAL_PARTITIONS));
+			auto initializeFromFile = [partition, file](sorter<string>*& sorter) {
+				sorter->initialize_from_file(INPUT_FILES[file].c_str(), TOTAL_STRINGS * ((float)partition / TOTAL_PARTITIONS));
 			};
 			for_each(sorters.begin(), sorters.end(), initializeFromFile);
 
