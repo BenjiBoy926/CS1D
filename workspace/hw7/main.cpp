@@ -17,7 +17,7 @@ const int TOTAL_PARTITIONS = 10;	// Total times the input files are partitioned
 
 const int TOTAL_INPUT_FILES = 2;
 const string* INPUT_FILES = new string[TOTAL_INPUT_FILES]{
-	"strings.txt",
+	"random.txt",
 	"words.txt"
 };
 
