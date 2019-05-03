@@ -32,7 +32,7 @@ public:
 	sorter(int capacity);
 
 	// Sort the list and return the number of seconds it took to complete
-	std::chrono::seconds timed_sort();
+	std::chrono::milliseconds timed_sort();
 
 	// Sort the list using operator<
 	virtual void sort() = 0;
@@ -67,12 +67,12 @@ sorter<Type>::sorter(int capacity)
 }
 
 template<typename Type>
-std::chrono::seconds sorter<Type>::timed_sort()
+std::chrono::milliseconds sorter<Type>::timed_sort()
 {
 	auto begin = std::chrono::system_clock::now();
 	sort();
 	auto end = std::chrono::system_clock::now();
-	return std::chrono::duration_cast<std::chrono::seconds>(end - begin);
+	return std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
 }
 
 template<typename Type>
@@ -80,7 +80,7 @@ void sorter<Type>::sort_report(std::string sortType)
 {
 	// Output the result
 	std::cout << std::setfill('-') << std::left;
-	std::cout << std::setw(23) << (sortType + ":") << ">: completed in " << timed_sort().count() << " seconds" << std::endl;
+	std::cout << std::setw(23) << (sortType + ":") << ">: completed in " << timed_sort().count() << " milliseconds" << std::endl;
 	std::cout << std::setfill(' ') << std::right;
 }
 

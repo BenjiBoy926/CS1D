@@ -12,7 +12,7 @@
 #include <vector>
 using namespace std;
 
-const int TOTAL_STRINGS = 5000;	// Total strings in sample input file
+const int TOTAL_STRINGS = 45000;	// Total strings in sample input file
 const int TOTAL_PARTITIONS = 10;	// Total times the input files are partitioned
 
 const int TOTAL_INPUT_FILES = 2;
