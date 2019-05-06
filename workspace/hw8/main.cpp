@@ -9,7 +9,7 @@
 using namespace std;
 
 // Default hash table size
-const int TABLE_SIZE = 5000;
+const int TABLE_SIZE = 53;
 // Max elements in the input file
 const int MAX_INPUT_SIZE = 5000;
 const int TOTAL_PARTITIONS = 10;
@@ -23,29 +23,9 @@ const std::string INPUT_FILES[TOTAL_INPUT_FILES] = {
 
 int main()
 {
-	hash_table<int> table(TABLE_SIZE, hash_table_test_application::general_hasher());
-
-	table.insert("Codey", 22);
-	table.insert("Corey", 24);
-	table.insert("Carissa", 20);
-
-	cout << "Found value " << table.find("Codey") << endl;
-	cout << "Found value " << table.find("Corey") << endl;
-	cout << "Found value " << table.find("Carissa") << endl;
-
-	table.remove("Codey");
-
-	try
-	{
-		int i = table.find("Codey");
-		cout << "Found value " << i << endl;
-	}
-	catch(invalid_argument& invError)
-	{
-		cout << "Could not find value with key Codey" << endl;
-	}
-
-	table.insert("Codey", 65);
-
+	hash_table_test_application app(TABLE_SIZE);
+	app.report_hash_table_algorithm_stats(cout, INPUT_FILES, TOTAL_INPUT_FILES,
+			TOTAL_PARTITIONS, MAX_INPUT_SIZE);
+	app.report_different_hasher_stats(cout, "random.txt", MAX_INPUT_SIZE);
 	return 0;
 }

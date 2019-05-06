@@ -36,7 +36,7 @@ public:
 	typedef std::vector<hash> hash_chain;
 	typedef typename std::vector<hash>::iterator hash_iterator;
 	typedef std::function<bool(hash)> hash_matcher;
-	typedef std::function<bool(const std::string&, int)> hash_generator;
+	typedef std::function<int(const std::string&, int)> hash_generator;
 
 // PRIVATE DATA
 private:
@@ -136,7 +136,7 @@ void hash_table<Type>::remove(const std::string& key)
 			throw std::invalid_argument("For input key " + key + ": no such key exists in the hash table");
 		}
 		else {
-			std::remove_if(chain.begin(), chain.end(), match_key(key));
+			chain.erase(hashValue);
 		}
 	}
 }
@@ -144,7 +144,7 @@ void hash_table<Type>::remove(const std::string& key)
 template<typename Type>
 Type& hash_table<Type>::operator [](const std::string& key) const
 {
-	hash_chain hashChain = get_hash_chain(key);
+	hash_chain& hashChain = get_hash_chain(key);
 
 	// If hash chain is not empty, search it for the given key
 	if(!hashChain.empty()) {

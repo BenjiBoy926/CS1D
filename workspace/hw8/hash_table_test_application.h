@@ -26,35 +26,23 @@ private:
 public:
 	hash_table_test_application(int tableSize) : table(tableSize, general_hasher()) {}
 
-	// Test the functions in the hash table, then test the different hashing functions
-	void test_all();
-
 	// Test the functions in the hash table with the general hasher - insertion, finding, and deletion
 	void report_hash_table_algorithm_stats(std::ostream&, const std::string* inputFiles,
 			int totalInputFiles, int totalPartitions, int maxInputSize);
 
 	// Test the hash table's efficiency given different hashing functions
-	void report_different_hasher_stats();
-
-	// Test and report the statistics of using the bit shift hasher
-	void test_bit_shift_hasher(const char* filename, int numElements);
-
-	// Test and report the statistics of using the summation hasher
-	void test_sum_hasher(const char* filename, int numElements);
-
-	// Test and report the statistics of using the multiplication-based hasher
-	void test_product_hasher(const char* filename, int numElements);
+	void report_different_hasher_stats(std::ostream&, const char*, int numElements);
 
 	// Output all given stats for the hash function
-	void output_hash_table_stats(const std::string& hashFunctionName, int minHashChainLength, int maxHashChainLength,
-			int avgHashChainLength, const hash_table_analyzer::hash_table_algorithm_stats& algorithmStats);
-
-public:
+	void output_hash_table_stats(std::ostream&, const std::string& hasherName,
+			hash_table_analyzer::hash_table_stats stats);
+protected:
 	// Different hash functions for the hash table
 	static hasher general_hasher();
 	static hasher bit_shift_hasher();
 	static hasher sum_hasher();
 	static hasher product_hasher();
+	static hasher my_hasher();
 };
 
 #endif /* HASH_TABLE_TEST_APPLICATION_H_ */
