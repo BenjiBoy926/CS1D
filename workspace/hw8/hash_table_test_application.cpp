@@ -133,7 +133,7 @@ hash_table_test_application::product_hasher()
 {
 	auto hashFunction = [](const string& key, int maxHash)
 	{
-		int result;
+		int result = 0;
 		for(unsigned int i = 0; i < key.size(); i++)
 		{
 			result *= key[i];
