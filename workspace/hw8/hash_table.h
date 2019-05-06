@@ -86,6 +86,12 @@ hash_table<Type>::hash_table(int size, hash_generator hasher)
 	this->table = new hash_chain[size];
 	this->size = size;
 	this->hasher = hasher;
+
+	// Default construct all vectors
+	for(int i = 0; i < size; i++)
+	{
+		this->table[i]();
+	}
 }
 
 // Add the key-value pair to the vector at the hash calculated for the key
