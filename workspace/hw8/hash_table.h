@@ -90,7 +90,7 @@ hash_table<Type>::hash_table(int size, hash_generator hasher)
 	// Default construct all vectors
 	for(int i = 0; i < size; i++)
 	{
-		this->table[i]();
+		this->table[i] = hash_chain();
 	}
 }
 
