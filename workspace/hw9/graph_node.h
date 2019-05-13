@@ -12,40 +12,43 @@
 #include <algorithm>
 #include <stdexcept>
 
-template<typename Type>
+template<typename Key, typename Value>
 class graph_node
 {
 // PUBLIC TYPEDEFS
 public:
-	typedef graph_node<Type> node;
+	typedef graph_node<Key, Value> node;
 
 // PRIVATE DATA
 private:
-	Type value;	// The data at the node
+	Key key;	// Key to identify the node
+	Value value;	// The data in the node
 	std::vector<node*> adjacencyList;
 		// References to the nodes that this node is connected to
 
 // PUBLIC INTERFACE
 public:
 	// CONSTRUCTORS
-	graph_node(const Type& value) : value(value), adjacencyList() {}
+	graph_node(const Key& key, const Value& value) : key(key), value(value), adjacencyList() {}
 
 	// GETTERS
-	Type& get_value() const { return value; }
+	Key get_key() const { return key; }
+	Value get_value() const { return value; }
+	std::vector<node*> get_adjacency_list() const { return adjacencyList; }
 
 	// "Directed link" - make this node point to the other one
 	// If this node already points to the other, throw exception
-	void dlink(const node*) throw(std::invalid_argument);
+	void directed_link(const node*) throw(std::invalid_argument);
 
 	// "Undirected link" - make each node point to each other
 	// If one node already points to the other (i.e. they have a directed connection),
 	// convert the directed connection to an undirected connection without throwing any errors
 	// If the nodes already have an undirected connection, throw an exception
-	void ulink(const node*) throw(std::invalid_argument);
+	void undirected_link(const node*) throw(std::invalid_argument);
 };
 
-template<typename Type>
-void graph_node<Type>::dlink(const node* nodePtr) throw(std::invalid_argument)
+template<typename Key, typename Value>
+void graph_node<Key, Value>::directed_link(const node* nodePtr) throw(std::invalid_argument)
 {
 	// If adjacency list is empty, add this node to the list
 	if(this->adjacencyList.empty())
@@ -80,14 +83,14 @@ void graph_node<Type>::dlink(const node* nodePtr) throw(std::invalid_argument)
 	}
 }
 
-template<typename Type>
-void graph_node<Type>::ulink(const node* nodePtr) throw(std::invalid_argument)
+template<typename Key, typename Value>
+void graph_node<Key, Value>::undirected_link(const node* nodePtr) throw(std::invalid_argument)
 {
 	bool firstThrew = false;
 
 	// Catch if this is already connected to the other
 	try {
-		this->dlink(nodePtr);
+		this->directed_link(nodePtr);
 	}
 	catch(std::invalid_argument& invArg) {
 		firstThrew = true;
@@ -95,7 +98,7 @@ void graph_node<Type>::ulink(const node* nodePtr) throw(std::invalid_argument)
 
 	// Catch if the other already points to this
 	try {
-		nodePtr->dlink(this);
+		nodePtr->directed_link(this);
 	}
 	catch(std::invalid_argument& invArg) {
 		// If this already contained that, and that contains this, throw an exception
