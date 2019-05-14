@@ -11,19 +11,21 @@
 #include <vector>
 #include <algorithm>
 #include <stdexcept>
+#include <utility>
+#include <iostream>
+
+// Forward declaration of friend class graph
+template<typename Key, typename Value>
+class graph;
 
 template<typename Key, typename Value>
 class graph_node
 {
-// PUBLIC TYPEDEFS
-public:
-	typedef graph_node<Key, Value> node;
-
 // PRIVATE DATA
 private:
 	Key key;	// Key to identify the node
 	Value value;	// The data in the node
-	std::vector<node*> adjacencyList;
+	std::vector<graph_node<Key, Value>*> adjacencyList;
 		// References to the nodes that this node is connected to
 
 // PUBLIC INTERFACE
@@ -34,32 +36,35 @@ public:
 	// GETTERS
 	Key get_key() const { return key; }
 	Value get_value() const { return value; }
-	std::vector<node*> get_adjacency_list() const { return adjacencyList; }
 
 	// "Directed link" - make this node point to the other one
-	// If this node already points to the other, throw exception
-	void directed_link(const node*) throw(std::invalid_argument);
+	// Return true if the edge was added and false if not
+	bool add_directed_edge(graph_node<Key, Value>*);
 
 	// "Undirected link" - make each node point to each other
-	// If one node already points to the other (i.e. they have a directed connection),
-	// convert the directed connection to an undirected connection without throwing any errors
-	// If the nodes already have an undirected connection, throw an exception
-	void undirected_link(const node*) throw(std::invalid_argument);
+	// Return a pair of bools:
+	//		- first indicates if directed edge created this -> other
+	//		- second indicates if directed edge created other -> this
+	std::pair<bool, bool> add_undirected_edge(graph_node<Key, Value>*);
+
+	// Declare the graph a friend of the node class
+	friend class graph<Key, Value>;
 };
 
 template<typename Key, typename Value>
-void graph_node<Key, Value>::directed_link(const node* nodePtr) throw(std::invalid_argument)
+bool graph_node<Key, Value>::add_directed_edge(graph_node<Key, Value>* nodePtr)
 {
 	// If adjacency list is empty, add this node to the list
 	if(this->adjacencyList.empty())
 	{
 		this->adjacencyList.push_back(nodePtr);
+		return true;
 	}
 	// If adjacency list is not empty, check to make sure
 	// a reference to this node is not already in the list
 	else
 	{
-		auto comparePointers = [nodePtr](node* otherPtr)
+		auto comparePointers = [nodePtr](graph_node<Key, Value>* otherPtr)
 		{
 			return nodePtr == otherPtr;
 		};
@@ -69,49 +74,20 @@ void graph_node<Key, Value>::directed_link(const node* nodePtr) throw(std::inval
 		// If the node pointer wasn't found, add it to the adjacency list
 		if(nodeFound == this->adjacencyList.end())
 		{
-			this->adjacencyList.push_back(nodeFound);
+			this->adjacencyList.push_back(nodePtr);
+			return true;
 		}
-		// If the node pointer is already in the list, throw an exception
 		else
 		{
-			throw std::invalid_argument(
-					"For input node with value " +
-					to_string(nodePtr->value) +
-					": a reference to this node already exists in the node with value " +
-					to_string(this->value));
+			return false;
 		}
 	}
 }
 
 template<typename Key, typename Value>
-void graph_node<Key, Value>::undirected_link(const node* nodePtr) throw(std::invalid_argument)
+std::pair<bool, bool> graph_node<Key, Value>::add_undirected_edge(graph_node<Key, Value>* nodePtr)
 {
-	bool firstThrew = false;
-
-	// Catch if this is already connected to the other
-	try {
-		this->directed_link(nodePtr);
-	}
-	catch(std::invalid_argument& invArg) {
-		firstThrew = true;
-	}
-
-	// Catch if the other already points to this
-	try {
-		nodePtr->directed_link(this);
-	}
-	catch(std::invalid_argument& invArg) {
-		// If this already contained that, and that contains this, throw an exception
-		if (firstThrew)
-		{
-			throw std::invalid_argument(
-					"For input node with value " +
-					to_string(nodePtr->value) +
-					": this and the node with value " +
-					to_string(this->value) +
-					" already share an undirected connection");
-		}
-	}
+	return std::make_pair(this->add_directed_edge(nodePtr), nodePtr->add_directed_edge(this));
 }
 
 #endif /* GRAPH_NODE_H_ */
