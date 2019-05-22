@@ -9,7 +9,12 @@
 #define GRAPH_TEST_APPLICATION_H_
 
 #include <iostream>
-#include "graph.h"
+#include "graph_analyzer.h"
+#include "graph_builder.h"
+
+const std::string BREADTH_FIRST_TEST_FILE = "breadth.txt";
+const std::string DEPTH_FIRST_TEST_FILE = "depth.txt";
+const std::string KOSARAJU_TEST_FILE = "kosaraju.txt";
 
 class graph_test_application
 {
@@ -19,7 +24,7 @@ private:
 	graph_test_application();
 
 	// Graph to test
-	static graph<int, int> graph;
+	static graph<int> graph;
 
 // PUBLIC INTERFACE
 public:
