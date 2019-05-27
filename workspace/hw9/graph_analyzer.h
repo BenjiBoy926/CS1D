@@ -23,6 +23,9 @@ public:
 
 	template<typename Key>
 	static std::string full_node_adjacency_listing(const graph<Key>&);
+
+	template<typename Key>
+	static std::string node_mesh_listing(const typename graph<Key>::node_mesh& mesh);
 };
 
 template<typename Key>
@@ -46,12 +49,12 @@ std::string graph_analyzer::node_adjacency_listing(const graph<Key>& g, const Ke
 		std::ostringstream stream;
 
 		// Insert initial node into the stream
-		stream << node->get_key() << " -> ";
+		stream << node->get_value() << " -> ";
 
 		// Insert each adjacent node key into the stream
 		for(auto nodePair : node->adjacencyList)
 		{
-			stream << nodePair.second->key << ", ";
+			stream << nodePair.second->get_value() << ", ";
 		}
 
 		return stream.str();
@@ -69,6 +72,24 @@ std::string graph_analyzer::full_node_adjacency_listing(const graph<Key>& g)
 	for(auto kvp : g.nodes)
 	{
 		stream << node_adjacency_listing(g, kvp.first) << std::endl;
+	}
+
+	return stream.str();
+}
+
+template<typename Key>
+std::string graph_analyzer::node_mesh_listing(const typename graph<Key>::node_mesh& mesh)
+{
+	std::ostringstream stream;
+
+	for(unsigned int i = 0; i < mesh.size(); i++)
+	{
+		stream << "Layer " << i << ": ";
+		for(auto nodePair : mesh[i])
+		{
+			stream << nodePair.first << ", ";
+		}
+		stream << std::endl;
 	}
 
 	return stream.str();
